@@ -1,0 +1,154 @@
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import '@xyflow/react/dist/style.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design tokens ─────────────────────────────────────────────────────────── */
+:root {
+  --surface-0: 8 9 14;
+  --surface-1: 15 17 25;
+  --surface-2: 22 26 37;
+  --surface-3: 32 38 54;
+  --ink: 234 238 245;
+  --ink-soft: 170 179 198;
+  --ink-faint: 108 118 142;
+  --line: 38 46 64;
+  --accent: 129 140 248;
+  color-scheme: dark;
+}
+
+html.light {
+  --surface-0: 248 249 251;
+  --surface-1: 255 255 255;
+  --surface-2: 242 243 247;
+  --surface-3: 228 230 237;
+  --ink: 15 20 36;
+  --ink-soft: 50 60 80;
+  --ink-faint: 100 110 130;
+  --line: 206 210 220;
+  --accent: 79 70 229;
+  color-scheme: light;
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────────── */
+html, body, #root { height: 100%; }
+
+body {
+  @apply bg-surface-0 text-ink font-sans antialiased;
+  margin: 0;
+  font-feature-settings: 'ss01', 'cv11', 'calt';
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+
+/* Better line heights for readability */
+p { @apply leading-relaxed; }
+h1, h2, h3 { @apply tracking-tight; }
+
+.font-mono {
+  font-feature-settings: 'liga' 0, 'calt' 0;
+  letter-spacing: -0.01em;
+}
+
+/* ── ReactFlow overrides ───────────────────────────────────────────────────── */
+.react-flow__renderer,
+.react-flow__pane { background: transparent !important; }
+.react-flow__attribution { display: none; }
+
+.react-flow__controls {
+  @apply border border-line rounded-xl overflow-hidden shadow-none;
+  background: rgb(var(--surface-1)) !important;
+}
+.react-flow__controls button {
+  @apply border-b border-line transition-colors;
+  background: rgb(var(--surface-1)) !important;
+  fill: rgb(var(--ink-soft)) !important;
+}
+.react-flow__controls button:hover {
+  background: rgb(var(--surface-2)) !important;
+  fill: rgb(var(--ink)) !important;
+}
+.react-flow__controls button:last-child { border-bottom: none; }
+
+.react-flow__minimap {
+  @apply border border-line rounded-xl overflow-hidden;
+  background: rgb(var(--surface-1)) !important;
+}
+
+.react-flow__handle { opacity: 0; pointer-events: none; }
+.react-flow__edge-path { stroke: rgb(var(--ink-faint)); }
+.react-flow__node { outline: none; }
+.react-flow__node:focus-visible .service-node { box-shadow: 0 0 0 2px rgb(var(--accent)); }
+
+/* ── Diagram background ────────────────────────────────────────────────────── */
+.diagram-bg {
+  background-image: radial-gradient(rgb(var(--line) / 0.55) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* ── Node highlight ────────────────────────────────────────────────────────── */
+.node-highlighted {
+  box-shadow:
+    0 0 0 2px rgb(var(--accent)),
+    0 0 20px rgb(var(--accent) / 0.25),
+    0 0 40px rgb(var(--accent) / 0.1);
+}
+
+/* ── Scrollbars ────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--line));
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--ink-faint)); background-clip: content-box; }
+
+/* ── Focus styles ──────────────────────────────────────────────────────────── */
+button:focus-visible,
+a:focus-visible,
+[role='button']:focus-visible,
+input:focus-visible {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Selection ─────────────────────────────────────────────────────────────── */
+::selection {
+  background: rgb(var(--accent) / 0.25);
+  color: rgb(var(--ink));
+}
+
+/* ── Code / pre ────────────────────────────────────────────────────────────── */
+code {
+  @apply font-mono;
+  font-size: 0.875em;
+}
+
+pre {
+  @apply font-mono text-sm;
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+/* ── Table polish ──────────────────────────────────────────────────────────── */
+table { border-collapse: collapse; }
+
+/* ── Animated gradient text fallback ──────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
